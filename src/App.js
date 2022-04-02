@@ -28,8 +28,6 @@ function App() {
             ]);
         }, TIME_IN_SECONDS);
 
-        setTimeout(() => timerId);
-
         return () => clearInterval(timerId);
 
     }, [messageList])
