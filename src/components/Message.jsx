@@ -23,8 +23,7 @@ const Message = ({ message }) => {
 								alignItems: "flex-start",
 							}}
 						>
-							{message.author === AUTHOR.bot && <AdbIcon />}
-							{message.author !== AUTHOR.bot && <FaceIcon />}
+							{message.author === AUTHOR.bot ? <AdbIcon /> : <FaceIcon />}
 						</Avatar>
 					</ListItemAvatar>
 					<ListItemText
