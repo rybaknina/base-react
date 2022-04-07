@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.3",
     "@testing-library/jest-dom": "5.16.3",
     "@testing-library/react": "12.1.4",
     "@testing-library/user-event": "13.5.0",
@@ -37,6 +39,10 @@
     ]
   },
   "devDependencies": {
-    "lodash": "^4.17.21"
+    "eslint": "7.5",
+    "eslint-plugin-react": "^7.29.4",
+    "lodash": "^4.17.21",
+    "prettier": "2.6.2",
+    "prop-types": "^15.8.1"
   }
 }
