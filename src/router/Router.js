@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import { ListItemIcon, MenuItem, MenuList, useTheme } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -32,7 +32,7 @@ const Router = () => {
 		});
 	};
 	return (
-		<BrowserRouter>
+		<>
 			<MenuList
 				style={{
 					display: "flex",
@@ -61,7 +61,7 @@ const Router = () => {
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>
-		</BrowserRouter>
+		</>
 	);
 };
 
