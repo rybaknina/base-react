@@ -1,52 +1,32 @@
-import { useEffect, useRef, useState } from "react";
-import { Fab, TextField, useTheme } from "@mui/material";
-import ChatList from "./ChatList";
 import Grid from "@mui/material/Grid";
+import { Fab, TextField, useTheme } from "@mui/material";
 import { Send } from "@mui/icons-material";
-import { AUTHOR, BOT_ANSWER, TIME_IN_SECONDS } from "../constants/common";
+import { useEffect, useRef, useState } from "react";
 import _uniqueId from "lodash/uniqueId";
+import { AUTHOR } from "../constants/common";
+import { useParams } from "react-router-dom";
 
-const MainApp = () => {
+const ControlPanel = ({ addMessage }) => {
 	const theme = useTheme();
-	const [messageList, setMessageList] = useState([]);
+	let { chatId } = useParams();
 	const [messageText, setMessageText] = useState("");
 	const textInput = useRef();
 
 	useEffect(() => {
 		textInput.current?.focus();
-		let len = messageList.length;
-		if (len < 1 || messageList[len - 1].author === AUTHOR.bot) {
-			return;
-		}
-
-		const timerId = setInterval(() => {
-			setMessageList((prevState) => [
-				...prevState,
-				{
-					id: _uniqueId("msg_"),
-					author: AUTHOR.bot,
-					text: BOT_ANSWER,
-				},
-			]);
-		}, TIME_IN_SECONDS);
-
-		return () => clearInterval(timerId);
-	}, [messageList]);
+	}, []);
 
 	const handleClick = () => {
 		if (messageText !== "") {
-			setMessageList([
-				...(messageList || []),
-				{
-					id: _uniqueId("msg_"),
-					author: AUTHOR.me,
-					text: messageText,
-				},
-			]);
+			const newMessage = {
+				id: _uniqueId("msg_"),
+				author: AUTHOR.me,
+				text: messageText,
+			};
+			addMessage(chatId, newMessage);
 			setMessageText("");
 		}
 	};
-
 	const handleChange = (event) => {
 		setMessageText(event.target.value);
 	};
@@ -58,7 +38,6 @@ const MainApp = () => {
 	};
 	return (
 		<div style={{ backgroundColor: theme.palette.primary.light }}>
-			<ChatList messages={messageList} />
 			<Grid container style={{ padding: "20px 15px" }}>
 				<Grid item xs={11}>
 					<TextField
@@ -89,4 +68,4 @@ const MainApp = () => {
 	);
 };
 
-export default MainApp;
+export default ControlPanel;

@@ -1,10 +1,10 @@
 import "./App.scss";
-import MainApp from "./components/MainApp";
 import { useState } from "react";
 import { blue, indigo, orange, teal } from "@mui/material/colors";
 import { createTheme, Switch, ThemeProvider } from "@mui/material";
+import Router from "./router/Router";
 
-function App() {
+const App = () => {
 	const [darkState, setDarkState] = useState(false);
 	const theme = createTheme({
 		palette: {
@@ -26,9 +26,9 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<Switch checked={darkState} onChange={handleThemeChange} size="medium" />
-			<MainApp />
+			<Router />
 		</ThemeProvider>
 	);
-}
+};
 
 export default App;
