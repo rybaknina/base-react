@@ -3,10 +3,9 @@ import ChatList from "../components/ChatList";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Button, useTheme } from "@mui/material";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+import { useTheme } from "@mui/material";
 
-const Chats = ({ chats, addMessage }) => {
+const Chats = () => {
 	const theme = useTheme();
 	return (
 		<>
@@ -20,19 +19,13 @@ const Chats = ({ chats, addMessage }) => {
 						}}
 					>
 						Список чатов
-						<Button
-							style={{ color: theme.palette.primary.contrastText }}
-							// todo onClick={addChat}
-						>
-							<AddBoxIcon />
-						</Button>
 					</Typography>
 				</Grid>
 			</Grid>
-			<Grid container component={Paper} style={{ width: "100%", height: "74vh" }}>
-				<ChatList chats={chats} />
+			<Grid container component={Paper} style={{ width: "100%", height: "76vh" }}>
+				<ChatList />
 			</Grid>
-			<ControlPanel addMessage={addMessage} />
+			<ControlPanel />
 		</>
 	);
 };

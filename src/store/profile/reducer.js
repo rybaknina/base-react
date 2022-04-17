@@ -1,8 +1,9 @@
-import { CHECK_ME, TOGGLE_NAME } from "./actions";
+import { CHECK_ME, TOGGLE_NAME, UPDATE_NAME } from "./actions";
+import { AUTHOR } from "../../constants/common";
 
 const initialState = {
-	showName: false,
-	name: "John Doe",
+	showName: true,
+	name: AUTHOR.me,
 	checkMe: false,
 };
 const profileReducer = (state = initialState, action) => {
@@ -17,6 +18,12 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state,
 				checkMe: !state.checkMe,
+			};
+		}
+		case UPDATE_NAME: {
+			return {
+				...state,
+				name: action.payload,
 			};
 		}
 		default:
