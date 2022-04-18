@@ -3,10 +3,11 @@ import { changeCheck, changeVisible, updateName } from "../store/profile/actions
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, FormControlLabel, TextField, Typography, useTheme } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
+import getProfile from "../store/profile/selectors";
 
 const Profile = () => {
 	const theme = useTheme();
-	const { showName, name, checkMe } = useSelector((state) => state.profile);
+	const { showName, name, checkMe } = useSelector(getProfile);
 	const [value, setValue] = useState("");
 	const textInput = useRef();
 	const dispatch = useDispatch();

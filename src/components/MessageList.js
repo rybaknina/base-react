@@ -4,10 +4,11 @@ import { useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import getMessageList from "../store/messages/selectors";
 
 const MessageList = () => {
 	const theme = useTheme();
-	const allMessages = useSelector((state) => state.messages.messageList);
+	const allMessages = useSelector(getMessageList);
 	const { chatId } = useParams();
 	if (chatId === undefined || !allMessages[chatId]) return null;
 	let messages = allMessages[chatId];

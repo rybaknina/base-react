@@ -22,10 +22,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addChat, deleteChat } from "../store/chats/actions";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import getChatList from "../store/chats/selectors";
 
 const ChatList = () => {
 	const theme = useTheme();
-	const chats = useSelector((state) => state.chats.chatList);
+	const chats = useSelector(getChatList);
 	const [visible, setVisible] = useState(false);
 	const [chatName, setChatName] = useState("");
 	const dispatch = useDispatch();
@@ -61,8 +62,9 @@ const ChatList = () => {
 
 	return (
 		<>
-			<Grid item xs={3} style={{ borderRight: "1px solid #e0e0e0" }}>
-				<Button style={{ color: theme.palette.primary.contrastText }} onClick={handleAdd}>
+			<Grid item xs={3} style={{ borderRight: "1px solid #e0e0e0", textAlign: "center" }}>
+				<Button style={{ color: theme.palette.primary.dark }} onClick={handleAdd}>
+					Add chat
 					<AddBoxIcon />
 				</Button>
 				<Dialog open={visible} onClose={handleClose}>
@@ -104,7 +106,7 @@ const ChatList = () => {
 							</Link>
 						))
 					) : (
-						<div>Chat not found</div>
+						<div style={{ textAlign: "center" }}>Chat not found</div>
 					)}
 				</List>
 			</Grid>

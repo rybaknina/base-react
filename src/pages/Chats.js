@@ -16,6 +16,7 @@ const Chats = () => {
 						style={{
 							backgroundColor: theme.palette.primary.light,
 							color: theme.palette.primary.contrastText,
+							padding: "5px 15px",
 						}}
 					>
 						Список чатов
