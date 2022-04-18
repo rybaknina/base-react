@@ -8,9 +8,14 @@ import { AUTHOR } from "../constants/common";
 import FaceIcon from "@mui/icons-material/Face";
 import { Grid, useTheme } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import { useSelector } from "react-redux";
 
 const Message = ({ message }) => {
 	const theme = useTheme();
+	const { name } = useSelector((state) => state.profile);
+	const isAuthorBot = (author) => {
+		return author === AUTHOR.bot;
+	};
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -23,21 +28,24 @@ const Message = ({ message }) => {
 								alignItems: "flex-start",
 							}}
 						>
-							{message.author === AUTHOR.bot ? <AdbIcon /> : <FaceIcon />}
+							{isAuthorBot(message.author) ? <AdbIcon /> : <FaceIcon />}
 						</Avatar>
 					</ListItemAvatar>
 					<ListItemText
 						primary={
-							<>
-								<Typography
-									sx={{ display: "inline" }}
-									component="span"
-									variant="caption"
-									color={theme.palette.primary.contrastText}
-								>
-									{message.text}
-								</Typography>
-							</>
+							<Typography variant="body1" color={theme.palette.primary.dark}>
+								{isAuthorBot(message.author) ? AUTHOR.bot : name}
+							</Typography>
+						}
+						secondary={
+							<Typography
+								sx={{ display: "inline" }}
+								component="span"
+								variant="caption"
+								color={theme.palette.secondary.dark}
+							>
+								{message.text}
+							</Typography>
 						}
 					/>
 				</ListItem>

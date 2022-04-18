@@ -1,28 +1,32 @@
 import Message from "./Message";
 import List from "@mui/material/List";
 import { useTheme } from "@mui/material";
-import { useEffect, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import getMessageList from "../store/messages/selectors";
 
-const MessageList = ({ chats }) => {
+const MessageList = () => {
 	const theme = useTheme();
+	const allMessages = useSelector(getMessageList);
 	const { chatId } = useParams();
-	if (chatId === undefined || !chats[chatId]) return null;
-	let messages = chats[chatId].messages;
-	const messagesEndRef = useRef(null);
+	if (chatId === undefined || !allMessages[chatId]) return null;
+	let messages = allMessages[chatId];
 
-	const scrollToBottom = () => {
-		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-	};
-
-	useEffect(scrollToBottom, [messages]);
+	// todo
+	// const messagesEndRef = useRef(null);
+	//
+	// const scrollToBottom = () => {
+	// 	messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+	// };
+	//
+	// useEffect(scrollToBottom, [allMessages]);
 
 	return (
 		<Grid item xs={9} style={{ paddingTop: "6px" }}>
 			<List
 				style={{
-					height: "71vh",
+					height: "73vh",
 					overflow: "auto",
 					backgroundColor: theme.palette.primary.light,
 				}}
@@ -30,7 +34,7 @@ const MessageList = ({ chats }) => {
 				{messages.map((message) => (
 					<Message key={message.id} message={message} />
 				))}
-				<div ref={messagesEndRef} />
+				{/*<div ref={messagesEndRef} />*/}
 			</List>
 		</Grid>
 	);

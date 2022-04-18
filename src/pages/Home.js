@@ -1,5 +1,5 @@
 const Home = () => {
-	return <div>Home</div>;
+	return <div style={{ textAlign: "center" }}>Home</div>;
 };
 
 export default Home;

@@ -3,27 +3,48 @@ import { Fab, TextField, useTheme } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
 import _uniqueId from "lodash/uniqueId";
-import { AUTHOR } from "../constants/common";
+import { AUTHOR, BOT_ANSWER, TIME_IN_SECONDS } from "../constants/common";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../store/messages/actions";
 
-const ControlPanel = ({ addMessage }) => {
+const ControlPanel = () => {
 	const theme = useTheme();
 	let { chatId } = useParams();
 	const [messageText, setMessageText] = useState("");
 	const textInput = useRef();
+	const dispatch = useDispatch();
+	const author = useSelector((state) => state.profile.name);
+	const allMessages = useSelector((state) => state.messages.messageList);
+	const messages = allMessages[chatId] || [];
 
 	useEffect(() => {
 		textInput.current?.focus();
-	}, []);
+		let len = messages.length;
+		if (len < 1 || messages[len - 1].author === AUTHOR.bot) {
+			return;
+		}
+		const timerId = setInterval(() => {
+			const text = BOT_ANSWER + messages[len - 1].id;
+			const newMessage = {
+				id: _uniqueId("msg_"),
+				author: AUTHOR.bot,
+				text,
+			};
+			dispatch(addMessage(chatId, newMessage));
+		}, TIME_IN_SECONDS);
+
+		return () => clearInterval(timerId);
+	}, [messages, chatId]);
 
 	const handleClick = () => {
 		if (messageText !== "") {
 			const newMessage = {
 				id: _uniqueId("msg_"),
-				author: AUTHOR.me,
+				author,
 				text: messageText,
 			};
-			addMessage(chatId, newMessage);
+			dispatch(addMessage(chatId, newMessage));
 			setMessageText("");
 		}
 	};
