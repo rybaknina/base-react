@@ -12,6 +12,7 @@ import {
 	ListItemText,
 	Paper,
 	TextField,
+	Typography,
 	useTheme,
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -63,10 +64,12 @@ const ChatList = () => {
 	return (
 		<>
 			<Grid item xs={3} style={{ borderRight: "1px solid #e0e0e0", textAlign: "center" }}>
-				<Button style={{ color: theme.palette.primary.dark }} onClick={handleAdd}>
-					Add chat
+				<IconButton edge="start" color="primary" onClick={handleAdd}>
+					<Typography variant="h6" style={{ padding: "5px" }}>
+						Add chat
+					</Typography>
 					<AddBoxIcon />
-				</Button>
+				</IconButton>
 				<Dialog open={visible} onClose={handleClose}>
 					<Paper style={{ padding: "10px" }}>
 						<DialogTitle>Enter name of chat</DialogTitle>
@@ -82,7 +85,7 @@ const ChatList = () => {
 						</Button>
 					</Paper>
 				</Dialog>
-				<List style={{ height: "70vh", overflow: "auto" }}>
+				<List style={{ height: "68vh", overflow: "auto" }}>
 					{chats?.length > 0 ? (
 						chats.map((chat) => (
 							<Link to={`/chats/${chat.id}`} key={chat.id}>
