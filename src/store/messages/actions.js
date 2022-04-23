@@ -14,7 +14,7 @@ export const addMessageWithSaga = (chatId, message) => ({
 	payload: { chatId, message },
 });
 
-export const addMessageWithThunk = (chatId, message) => (dispatch, getState) => {
+export const addMessageWithThunk = (chatId, message) => (dispatch) => {
 	dispatch(addMessage(chatId, message));
 
 	if (message.author !== AUTHOR.bot) {
