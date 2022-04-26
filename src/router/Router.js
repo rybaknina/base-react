@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import Chats from "../pages/Chats";
 import NotFound from "../pages/NotFound";
 import MessageList from "../components/MessageList";
+import Gists from "../pages/Gists";
 
 const Router = () => {
 	let theme = useTheme();
@@ -26,6 +27,9 @@ const Router = () => {
 				<MenuItem component={Link} to="/chats">
 					Chats
 				</MenuItem>
+				<MenuItem component={Link} to="/gists">
+					Gists
+				</MenuItem>
 				<MenuItem component={Link} to="/profile">
 					<ListItemIcon>
 						<AccountBoxIcon fontSize="small" />
@@ -35,6 +39,7 @@ const Router = () => {
 			<Routes>
 				<Route path="/" exact element={<Home />} />
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/gists" element={<Gists />} />
 				<Route path="/chats" element={<Chats />}>
 					<Route path=":chatId" element={<MessageList />} />
 				</Route>
