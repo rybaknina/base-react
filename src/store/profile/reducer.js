@@ -21,9 +21,10 @@ const profileReducer = (state = initialState, action) => {
 			};
 		}
 		case UPDATE_NAME: {
+			console.log(action.userId);
 			return {
 				...state,
-				name: action.payload,
+				name: action.name,
 			};
 		}
 		default:

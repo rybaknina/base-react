@@ -1,16 +1,22 @@
-import { useCallback, useRef, useState } from "react";
-import { changeCheck, changeVisible, updateName } from "../store/profile/actions";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { changeCheck, changeVisible } from "../store/profile/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, FormControlLabel, TextField, Typography, useTheme } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import getProfile from "../store/profile/selectors";
+import { getProfileNameWithFB, updateNameWithFb } from "../middlewares/middleware";
+import useAuth from "../hooks/AuthProvider";
 
 const Profile = () => {
+	let auth = useAuth();
 	const theme = useTheme();
 	const { showName, name, checkMe } = useSelector(getProfile);
 	const [value, setValue] = useState("");
 	const textInput = useRef();
 	const dispatch = useDispatch();
+
+	const userId = auth.user.uid;
+	console.log(userId);
 
 	const setShowName = useCallback(() => {
 		dispatch(changeVisible);
@@ -25,7 +31,7 @@ const Profile = () => {
 	};
 
 	const saveName = () => {
-		dispatch(updateName(value));
+		dispatch(updateNameWithFb(userId, value));
 		setValue("");
 	};
 
@@ -34,6 +40,10 @@ const Profile = () => {
 			saveName();
 		}
 	};
+
+	useEffect(() => {
+		dispatch(getProfileNameWithFB(userId));
+	}, [userId]);
 
 	return (
 		<div style={{ textAlign: "center" }}>

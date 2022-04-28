@@ -1,4 +1,4 @@
-import { ADD_CHAT, DEL_CHAT } from "./actions";
+import { ADD_CHAT, DEL_CHAT, UPDATE_CHATS } from "./actions";
 import _uniqueId from "lodash/uniqueId";
 
 const initialState = {
@@ -21,6 +21,12 @@ const chatsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				chatList: [...state.chatList.filter((chat) => chat.id !== action.payload)],
+			};
+		}
+		case UPDATE_CHATS: {
+			return {
+				...state,
+				chatList: action.chats,
 			};
 		}
 		default:
