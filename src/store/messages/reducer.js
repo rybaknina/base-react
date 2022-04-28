@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./actions";
+import { ADD_MESSAGE, UPDATE_MESSAGES } from "./actions";
 import _uniqueId from "lodash/uniqueId";
 
 const initialState = {
@@ -21,6 +21,15 @@ const messagesReducer = (state = initialState, action) => {
 							id: _uniqueId("msg_"),
 						},
 					],
+				},
+			};
+		}
+		case UPDATE_MESSAGES: {
+			return {
+				...state,
+				messageList: {
+					...state.messageList,
+					[action.chatId]: action.messages,
 				},
 			};
 		}

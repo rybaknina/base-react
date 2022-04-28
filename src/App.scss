@@ -2,3 +2,21 @@
   text-align: center;
 }
 
+form {
+  max-width: 300px;
+  margin: auto;
+  border: 1px solid #999;
+  padding: 4rem 2rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  & > * {
+    margin-bottom: 1rem !important;
+  }
+}
+

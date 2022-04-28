@@ -2,10 +2,9 @@ import Grid from "@mui/material/Grid";
 import { Fab, TextField, useTheme } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
-import _uniqueId from "lodash/uniqueId";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessageWithSaga } from "../store/messages/actions";
+import { addMessageWithFb } from "../middlewares/middleware";
 
 const ControlPanel = () => {
 	const theme = useTheme();
@@ -22,11 +21,10 @@ const ControlPanel = () => {
 	const handleClick = () => {
 		if (messageText !== "") {
 			const newMessage = {
-				id: _uniqueId("msg_"),
 				author,
 				text: messageText,
 			};
-			dispatch(addMessageWithSaga(chatId, newMessage));
+			dispatch(addMessageWithFb(chatId, newMessage));
 			setMessageText("");
 		}
 	};

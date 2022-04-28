@@ -7,6 +7,9 @@ import Chats from "../pages/Chats";
 import NotFound from "../pages/NotFound";
 import MessageList from "../components/MessageList";
 import Gists from "../pages/Gists";
+import Login from "../pages/Login";
+import Registration from "../pages/Registration";
+import RequireAuth from "../hocs/RequireAuth";
 
 const Router = () => {
 	let theme = useTheme();
@@ -35,14 +38,26 @@ const Router = () => {
 						<AccountBoxIcon fontSize="small" />
 					</ListItemIcon>
 				</MenuItem>
+				<MenuItem component={Link} to="/login">
+					Login
+				</MenuItem>
+				<MenuItem component={Link} to="/registration">
+					Registration
+				</MenuItem>
 			</MenuList>
 			<Routes>
 				<Route path="/" exact element={<Home />} />
-				<Route path="/profile" element={<Profile />} />
-				<Route path="/gists" element={<Gists />} />
-				<Route path="/chats" element={<Chats />}>
-					<Route path=":chatId" element={<MessageList />} />
+
+				<Route path="/login" element={<Login />} />
+				<Route path="/registration" element={<Registration />} />
+				<Route element={<RequireAuth />}>
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/gists" element={<Gists />} />
+					<Route path="/chats" element={<Chats />}>
+						<Route path=":chatId" element={<MessageList />} />
+					</Route>
 				</Route>
+
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</>

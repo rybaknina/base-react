@@ -17,13 +17,13 @@ import {
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import MessageList from "./MessageList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { addChat, deleteChat } from "../store/chats/actions";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import getChatList from "../store/chats/selectors";
+import { addChatWithFb, deleteChatWithFb, initTrackerWithFB } from "../middlewares/middleware";
 
 const ChatList = () => {
 	const theme = useTheme();
@@ -31,6 +31,7 @@ const ChatList = () => {
 	const [visible, setVisible] = useState(false);
 	const [chatName, setChatName] = useState("");
 	const dispatch = useDispatch();
+	const { chatId } = useParams();
 
 	useEffect(() => {
 		chatName.current?.focus();
@@ -38,7 +39,7 @@ const ChatList = () => {
 
 	const handleSave = () => {
 		if (chatName !== "") {
-			dispatch(addChat(chatName));
+			dispatch(addChatWithFb(chatName));
 			setChatName("");
 			handleClose();
 		}
@@ -58,13 +59,18 @@ const ChatList = () => {
 		}
 	};
 	const handleDelete = (chatId) => {
-		dispatch(deleteChat(chatId));
+		dispatch(deleteChatWithFb(chatId));
 	};
+
+	useEffect(() => {
+		if (!chatId) return;
+		dispatch(initTrackerWithFB());
+	}, [chatId]);
 
 	return (
 		<>
 			<Grid item xs={3} style={{ borderRight: "1px solid #e0e0e0", textAlign: "center" }}>
-				<IconButton edge="start" color="primary" onClick={handleAdd}>
+				<IconButton edge="start" color="primary" aria-label="add chat" onClick={handleAdd}>
 					<Typography variant="h6" style={{ padding: "5px" }}>
 						Add chat
 					</Typography>
@@ -103,7 +109,10 @@ const ChatList = () => {
 											/>
 										</Avatar>
 									</ListItemAvatar>
-									<ListItemText primary={chat.name} />
+									<ListItemText
+										style={{ wordWrap: "break-word" }}
+										primary={chat.name}
+									/>
 								</ListItem>
 								<Divider />
 							</Link>

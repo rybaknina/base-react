@@ -3,14 +3,16 @@ import List from "@mui/material/List";
 import { useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import getMessageList from "../store/messages/selectors";
+import { useEffect } from "react";
+import { getMessagesByChatIdWithFB } from "../middlewares/middleware";
 
 const MessageList = () => {
 	const theme = useTheme();
 	const allMessages = useSelector(getMessageList);
 	const { chatId } = useParams();
-	if (chatId === undefined || !allMessages[chatId]) return null;
+	const dispatch = useDispatch();
 	let messages = allMessages[chatId];
 
 	// todo
@@ -22,6 +24,10 @@ const MessageList = () => {
 	//
 	// useEffect(scrollToBottom, [allMessages]);
 
+	useEffect(() => {
+		dispatch(getMessagesByChatIdWithFB(chatId));
+	}, [chatId]);
+
 	return (
 		<Grid item xs={9} style={{ paddingTop: "6px" }}>
 			<List
@@ -31,8 +37,8 @@ const MessageList = () => {
 					backgroundColor: theme.palette.primary.light,
 				}}
 			>
-				{messages.map((message) => (
-					<Message key={message.id} message={message} />
+				{messages?.map((message, index) => (
+					<Message key={index} message={message} />
 				))}
 				{/*<div ref={messagesEndRef} />*/}
 			</List>

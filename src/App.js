@@ -3,6 +3,8 @@ import { useState } from "react";
 import { blue, indigo, orange, teal } from "@mui/material/colors";
 import { createTheme, Switch, ThemeProvider } from "@mui/material";
 import Router from "./router/Router";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./hooks/AuthProvider";
 
 const App = () => {
 	const [darkState, setDarkState] = useState(false);
@@ -26,7 +28,9 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Switch checked={darkState} onChange={handleThemeChange} size="medium" />
-			<Router />
+			<AuthProvider>
+				<Router />
+			</AuthProvider>
 		</ThemeProvider>
 	);
 };
