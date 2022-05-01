@@ -97,8 +97,12 @@ const ChatList = () => {
 							<Link to={`/chats/${chat.id}`} key={chat.id}>
 								<ListItem
 									secondaryAction={
-										<IconButton edge="end" aria-label="delete">
-											<DeleteIcon onClick={() => handleDelete(chat.id)} />
+										<IconButton
+											edge="end"
+											aria-label="delete"
+											onClick={() => handleDelete(chat.id)}
+										>
+											<DeleteIcon />
 										</IconButton>
 									}
 								>
