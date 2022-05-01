@@ -15,7 +15,7 @@ const Gists = () => {
 	};
 
 	useEffect(() => {
-		requestGists();
+		requestGists().then((res) => console.log(res));
 	}, []);
 
 	const renderGist = useCallback(

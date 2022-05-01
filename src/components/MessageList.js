@@ -25,6 +25,7 @@ const MessageList = () => {
 	// useEffect(scrollToBottom, [allMessages]);
 
 	useEffect(() => {
+		if (!chatId) return;
 		dispatch(getMessagesByChatIdWithFB(chatId));
 	}, [chatId]);
 
